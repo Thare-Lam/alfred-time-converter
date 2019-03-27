@@ -19,3 +19,11 @@ Type datetime to convert to timestamp or type timestamp to convert to datetime.
 ## Download
 
 [Time Converter](https://github.com/Thare-Lam/alfred-time-converter/releases)
+
+## RELEASE NOTE
+
+### v1.0.0
+First release
+
+### v1.1.0
+Add *now* support

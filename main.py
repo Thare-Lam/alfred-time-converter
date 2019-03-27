@@ -6,6 +6,7 @@ from workflow import Workflow3, ICON_SYNC
 
 invalid_date = 'Invalid datetime'
 hint = 'Click Enter to copy'
+now = 'now'
 
 
 def main(wf):
@@ -16,6 +17,8 @@ def main(wf):
             format_timestamp(wf, s)
             if s >= 1000:
                 format_timestamp(wf, s/1000)
+        elif now == arg:
+            format_now(wf)
         else:
             format_date(wf, arg)
     else:
@@ -24,8 +27,22 @@ def main(wf):
 
 
 def format_timestamp(wf, millisecond):
-    result = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(millisecond))
+    result = convert_time(time.localtime(millisecond))
     wf.add_item(valid=True, title=result, subtitle=hint, arg=result)
+
+
+def convert_time(t):
+    return time.strftime('%Y-%m-%d %H:%M:%S', t)
+
+
+def format_now(wf):
+    now_time = time.time()
+    now_time_s = round(now_time)
+    now_time_ms = round(now_time * 1000)
+    now_time_format = convert_time(time.localtime(now_time_s))
+    wf.add_item(valid=True, title=now_time_format, subtitle=hint, arg=now_time_format)
+    wf.add_item(valid=True, title=now_time_ms, subtitle=hint, arg=now_time_ms)
+    wf.add_item(valid=True, title=now_time_s, subtitle=hint, arg=now_time_s)
 
 
 def format_date(wf, date_str):
